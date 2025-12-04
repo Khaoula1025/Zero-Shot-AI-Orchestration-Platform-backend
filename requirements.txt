@@ -1,0 +1,15 @@
+###### FastApi related ########
+fastapi
+uvicorn
+python-dotenv
+pydantic
+PyJWT 
+python-decouple
+sqlAlchemy
+psycopg2-binary
+dotenv
+python-jose
+passlib[bcrypt]
+httpx
+pytest
+
