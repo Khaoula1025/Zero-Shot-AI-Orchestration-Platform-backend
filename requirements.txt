@@ -12,4 +12,5 @@ python-jose
 passlib[bcrypt]
 httpx
 pytest
+huggingface_hub
 
