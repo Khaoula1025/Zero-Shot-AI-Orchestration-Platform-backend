@@ -13,4 +13,6 @@ passlib[bcrypt]
 httpx
 pytest
 huggingface_hub
+google-generativeai
+
 

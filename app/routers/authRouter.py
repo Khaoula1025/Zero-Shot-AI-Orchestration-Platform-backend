@@ -3,7 +3,7 @@ from schemas.user import userCreate
 from models.user import User
 from db.database import get_db
 from db.database import sessionmaker
-from dependencies import signJwt
+from services.auth_services import signJwt
 
 authRouter= APIRouter(prefix="/auth")
 
