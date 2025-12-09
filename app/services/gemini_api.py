@@ -46,7 +46,7 @@ def gemini_analyse(text, categorie):
         # Parsing JSON
         resultat = json.loads(texte_propre)
         
-        return resultat
+        return {'resume':resultat['resume'],'ton':resultat['ton'],'categorie':categorie}
         
     except json.JSONDecodeError as e:
         print(f"Erreur de parsing JSON: {e}")

@@ -1,5 +1,5 @@
-from fastapi import Depends
-from jose import jwt 
+from fastapi import Depends , Cookie , HTTPException , status
+from jose import jwt ,JWTError
 import time
 from db.database import sessionmaker,get_db
 from models.user import User
@@ -12,8 +12,8 @@ jwtSecret=os.getenv('secret')
 
 def signJwt(user_id):
     payload={
-        'user_id':user_id,
-              "expires": time.time() +800
+        'sub':str(user_id),
+         "expires": time.time() +8000
     }
     token = jwt.encode(payload,jwtSecret,algorithm='HS256')
     return {
@@ -21,12 +21,31 @@ def signJwt(user_id):
         'token_type':'Bearer'
     }
 
-def check_user(user,db:sessionmaker=Depends(get_db)):
-    found =db.query(User).filter(User.username==user.username,User.password==user.password).first()
-    if found:
-        return 'user found'
-    else:
-        return 'user not found'
+def cookie_key(access_token:str=Cookie(None)):
+    if not access_token :
+        raise HTTPException(status_code=401,detail='not authentified')
+    return access_token
 
+def get_current_user(
+    token: str = Depends(cookie_key),
+    db: sessionmaker = Depends(get_db)
+):
+    try:
+        payload = jwt.decode(token, jwtSecret, algorithms=["HS256"])
+        user_id = payload.get("sub")
 
+        if user_id is None:
+            raise HTTPException(status_code=401, detail="Invalid token")
 
+        user = db.query(User).filter(User.id == int(user_id)).first()
+
+        if not user:
+            raise HTTPException(status_code=404, detail="User not found")
+
+        return user
+
+    except JWTError:
+        raise HTTPException(
+            status_code=401,
+            detail="Could not validate credentials"
+        )
