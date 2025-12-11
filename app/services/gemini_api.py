@@ -19,7 +19,7 @@ Tâches :
 
 {{
     "resume": "votre résumé ici",
-    "ton": "positif|negatif|neutre"
+    "ton": "positif|negatif|neutre",
 }}
 
 Contraintes :
@@ -29,7 +29,7 @@ Contraintes :
 """
     return prompt
 
-def gemini_analyse(text, categorie):
+def gemini_analyse(text, categorie,score):
     try:
         # Configuration de l'API 
         genai.configure(api_key=GEMINI_API_KEY)
@@ -45,8 +45,9 @@ def gemini_analyse(text, categorie):
         
         # Parsing JSON
         resultat = json.loads(texte_propre)
+        print('##########resume##################',resultat)
         
-        return {'resume':resultat['resume'],'ton':resultat['ton'],'categorie':categorie}
+        return {'resume':resultat['resume'],'tone':resultat['ton'],'categorie':categorie,'score':score}
         
     except json.JSONDecodeError as e:
         print(f"Erreur de parsing JSON: {e}")

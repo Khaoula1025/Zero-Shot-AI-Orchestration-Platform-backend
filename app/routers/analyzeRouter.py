@@ -9,5 +9,5 @@ analyzeRouter=APIRouter()
 @analyzeRouter.post('/analyse')
 def text_analyze(request:request_analyse,current_user:str=Depends(get_current_user)):
     res_1=articles_analyses(request.article_text)
-    response = gemini_analyse(request.article_text,res_1["label"])
+    response = gemini_analyse(request.article_text,res_1["label"],res_1["score"])
     return response
