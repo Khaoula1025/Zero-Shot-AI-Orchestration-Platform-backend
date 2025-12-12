@@ -2,10 +2,8 @@
 from app.services.hugging_face_filter import articles_analyses
 
 def test_articles_analyses(mocker):
-    # Mock the client
     mock_client = mocker.patch('app.services.hugging_face_filter.client')
     
-    # Create simple response objects
     class FakeResult:
         def __init__(self, label, score):
             self.label = label

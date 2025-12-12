@@ -1,0 +1,2 @@
+2025-12-12 13:00:06,714 - INFO - SignUp requested for user: string
+2025-12-12 13:00:06,720 - WARNING - SignUp failed — user already exists: string

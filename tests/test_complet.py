@@ -7,14 +7,11 @@ client = TestClient(app)
 
 
 def test_text_analyze_endpoint(mocker):
-    # Fake authenticated user
     app.dependency_overrides[get_current_user] = lambda: "test_user"
-    
-    # Mock external services
     mock_hf = mocker.patch('app.routers.analyzeRouter.articles_analyses')
     mock_hf.return_value = {'label': 'Finance', 'score': 0.85}
-
     mock_gemini = mocker.patch('app.routers.analyzeRouter.gemini_analyse')
+
     mock_gemini.return_value = {
         'resume': 'Test summary',
         'tone': 'positif',
