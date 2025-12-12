@@ -1,7 +1,7 @@
 from fastapi import FastAPI,APIRouter
-from db.database import Base,engine
-from routers.authRouter import authRouter 
-from routers.analyzeRouter import analyzeRouter 
+from app.db.database import Base,engine
+from app.routers.authRouter import authRouter 
+from app.routers.analyzeRouter import analyzeRouter 
 
 app=FastAPI(
     description="Zero-Shot-Ai-Orchestration-Platform"

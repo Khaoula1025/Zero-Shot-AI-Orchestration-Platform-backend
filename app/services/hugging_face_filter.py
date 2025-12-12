@@ -34,5 +34,5 @@ nouvelles usines en 2025. Les investisseurs ont salué ces résultats exceptionn
 faisant grimper l'action de 12% en séance.
 """
 
-# print(articles_analyses(texte_test_1))
+
 

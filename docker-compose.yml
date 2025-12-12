@@ -1,19 +1,20 @@
 services:
- db :
-   image: postgres:15
-   environement:
-     POSTGRES_USER:${DB_USER}
-     POSTGRES_PASSWORD:${DB_PASSWORD}
-     POSTGRES_DB:${DB_NAME}
-   ports:
-       - '5432:5432'
-   volumes:
-       - postgres_data:/var/lib/postgresql/postgres_data
- backend:
-   build:
-   ports:
-     - '8000:8000'
-   environment:
+  db:
+    image: postgres:15
+    environment:
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
+    ports:
+      - "5432:5432"
+    # volumes:
+    #   - postgres_data:/var/lib/postgresql/data
+  
+  backend:
+    build: .
+    ports: 
+      - "8000:8000"
+    environment:
       DB_USER: ${DB_USER}
       DB_PASSWORD: ${DB_PASSWORD}
       DB_HOST: db
@@ -22,14 +23,18 @@ services:
       secret: ${SECRET}
       HUGGINGFACE_API_KEY: ${HUGGINGFACE_API_KEY}
       GEMINI_API_KEY: ${GEMINI_API_KEY}
-   depends_on:
-      - db 
+    depends_on:
+      - db
+  
+  frontend:
+    build: ../zero-shot-ai-orchestration-platform-frontend
+    ports:
+      - "3000:3000"
+    environment:
+      # For Next.js rewrites (server-side proxy)
+      API_URL: http://backend:8000
+    depends_on:
+      - backend
 
- frontend:
-   build: ../zero-shot-ai-orchestration-platform-frontend
-   ports:
-      - '3000:3000'
-   environement:
-    API_URL: http://backend:8000
-   depends_on:
-    - backend 
+# volumes: 
+#   postgres_data:

@@ -1,8 +1,8 @@
 from fastapi import Depends , Cookie , HTTPException , status
 from jose import jwt ,JWTError
 import time
-from db.database import sessionmaker,get_db
-from models.user import User
+from app.db.database import sessionmaker,get_db
+from app.models.user import User
 import os 
 from dotenv import load_dotenv
 

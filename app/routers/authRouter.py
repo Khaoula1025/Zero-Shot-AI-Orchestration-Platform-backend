@@ -1,11 +1,11 @@
 from fastapi import APIRouter, Depends, HTTPException, Response , status
-from schemas.user import userCreate
-from models.user import User
-from db.database import get_db
-from db.database import sessionmaker
-from services.auth_services import signJwt
-from core.security import hash_password, verify_password
-from services.auth_services import get_current_user
+from app.schemas.user import userCreate
+from app.models.user import User
+from app.db.database import get_db
+from app.db.database import sessionmaker
+from app.services.auth_services import signJwt
+from app.core.security import hash_password, verify_password
+from app.services.auth_services import get_current_user
 authRouter = APIRouter(prefix="/auth")
 
 @authRouter.post("/signUp")

@@ -1,8 +1,8 @@
 from fastapi import APIRouter ,Depends
-from services.gemini_api import gemini_analyse
-from services.hugging_face_filter import articles_analyses
-from services.auth_services import get_current_user
-from schemas.articles import request_analyse
+from app.services.gemini_api import gemini_analyse
+from app.services.hugging_face_filter import articles_analyses
+from app.services.auth_services import get_current_user
+from app.schemas.articles import request_analyse
 
 analyzeRouter=APIRouter()
 

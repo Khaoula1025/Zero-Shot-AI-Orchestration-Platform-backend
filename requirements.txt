@@ -15,6 +15,7 @@ httpx
 pytest
 huggingface_hub
 google-generativeai
+pytest-mock
 
 
 
